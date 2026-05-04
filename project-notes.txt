@@ -1,1 +1,10 @@
 Final Project Repository Setup Complete
+
+Date: May 4, 2026
+
+This week I completed the first part of the Multi-Game Java Gaming System. 
+I created the Game superclass which serves as the foundation for all games 
+in the system. I built two child classes, GuessTheNumber and 
+RockPaperScissors, which extend Game and override the start() and play() 
+methods. I created the GameHub main menu class which uses 
+polymorphism to launch each game and loops until the user quits.
