@@ -6,5 +6,18 @@ This week I completed the first part of the Multi-Game Java Gaming System.
 I created the Game superclass which serves as the foundation for all games 
 in the system. I built two child classes, GuessTheNumber and 
 RockPaperScissors, which extend Game and override the start() and play() 
-methods. I created the GameHub main menu class which uses 
+methods. I created the GameHub main menu class which uses
 polymorphism to launch each game and loops until the user quits.
+
+---
+
+Date: May 14, 2026
+
+This week I completed the second part of the Multi-Game Java Gaming System.
+I converted the Trivia Game from an earlier assignment into a proper subclass
+of Game and integrated it into the Game Hub menu. I also created two brand
+new games from scratch: Word Scramble and High-Low Card Game, both extending
+Game and overriding the start() and play() methods. One challenge I faced was
+figuring out how to scramble a word by converting it into a char array and
+swapping the letters randomly. I also added try/catch exception handling across
+all games and the main hub menu so the program never crashes from bad input.

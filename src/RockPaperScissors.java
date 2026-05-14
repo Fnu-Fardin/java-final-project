@@ -12,7 +12,7 @@ public class RockPaperScissors extends Game {
 		super("Rock, Paper, Scissors");
 	}
 
- 
+
 	// Instance Methods - overriding the parent class methods
 
 	// start method - introduces the game to the player before it begins
@@ -30,14 +30,33 @@ public class RockPaperScissors extends Game {
 	@Override
 	public void play() {
 
-		Scanner input = new Scanner(System.in);
+		// use the shared scanner from GameHub to avoid input conflicts
+		Scanner input = GameHub.input;
 
 		// keep looping so the player can play multiple rounds
 		while (true) {
 
-			// --- GET PLAYER CHOICE ---
-			System.out.print("Enter your choice (rock, paper, scissors) or type quit to stop: ");
-			String playerChoice = input.nextLine();
+			// --- GET AND VALIDATE PLAYER CHOICE ---
+			// keep looping until the player enters a valid choice or quit
+			String playerChoice = "";
+			boolean validInput = false;
+
+			while (!validInput) {
+				try {
+					System.out.print("Enter your choice (rock, paper, scissors) or type quit to stop: ");
+					playerChoice = input.nextLine().toLowerCase();
+
+					if (playerChoice.equals("rock") || playerChoice.equals("paper") || playerChoice.equals("scissors") || playerChoice.equals("quit")) {
+						validInput = true;
+					} else {
+						System.out.println("Invalid choice. Please enter rock, paper, or scissors.");
+						System.out.println();
+					}
+
+				} catch (Exception e) {
+					System.out.println("Something went wrong. Please try again.");
+				}
+			}
 
 			// let the player quit back to the main menu
 			if (playerChoice.equals("quit")) {
@@ -79,7 +98,7 @@ public class RockPaperScissors extends Game {
 				System.out.println("You win! Scissors beats paper.");
 
 			} else {
-				// if none of the winning conditions matched, computer wins
+				// computer wins
 				System.out.println("Computer wins! Better luck next time.");
 			}
 

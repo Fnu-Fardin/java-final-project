@@ -7,14 +7,19 @@ import java.util.Scanner;
 
 public class GameHub {
 
-	public static void main(String[] args) {
+	// shared scanner - created once here and used by all games
+	// this prevents input issues that happen when multiple scanners read from the same source
+	static Scanner input = new Scanner(System.in);
 
-		Scanner input = new Scanner(System.in);
+	public static void main(String[] args) {
 
 		// --- CREATE GAME OBJECTS ---
 		// polymorphism - each object is a Game but runs its own version of start() and play()
 		Game guessTheNumber = new GuessTheNumber();
 		Game rockPaperScissors = new RockPaperScissors();
+		Game triviaGame = new TriviaGame();
+		Game wordScramble = new WordScramble();
+		Game highLowCardGame = new HighLowCardGame();
 
 
 		System.out.println("==========================================");
@@ -29,9 +34,23 @@ public class GameHub {
 			// display the menu options
 			displayMenu();
 
-			// get the user's menu selection
+			// get the user's menu selection - wrapped in try/catch so a non-number won't crash the program
 			System.out.print("Enter your choice: ");
-			int selection = Integer.parseInt(input.nextLine());
+
+			int selection = 0;
+			boolean validInput = false;
+
+			while (!validInput) {
+				try {
+					String userInput = input.nextLine();
+					selection = Integer.parseInt(userInput);
+					validInput = true;
+
+				} catch (NumberFormatException e) {
+					System.out.println("Invalid input. Please enter a number between 1 and 6.");
+					System.out.print("Enter your choice: ");
+				}
+			}
 
 			System.out.println();
 
@@ -48,19 +67,34 @@ public class GameHub {
 				rockPaperScissors.play();
 
 			} else if (selection == 3) {
+				// launch Trivia Game
+				triviaGame.start();
+				triviaGame.play();
+
+			} else if (selection == 4) {
+				// launch Word Scramble
+				wordScramble.start();
+				wordScramble.play();
+
+			} else if (selection == 5) {
+				// launch High-Low Card Game
+				highLowCardGame.start();
+				highLowCardGame.play();
+
+			} else if (selection == 6) {
 				// quit the system
 				System.out.println("Thanks for visiting the Java Game Hub. Goodbye!");
 				System.exit(0);
 
 			} else {
 				// invalid selection - ask again
-				System.out.println("Invalid option. Please enter 1, 2, or 3.");
+				System.out.println("Invalid option. Please enter a number between 1 and 6.");
 				System.out.println();
 			}
 
 		} // end of main menu loop
 
-	} // end of main method 
+	} // end of main method
 
 
 	// displayMenu - helper method to print the main menu options
@@ -71,7 +105,10 @@ public class GameHub {
 		System.out.println();
 		System.out.println("1. Guess the Number");
 		System.out.println("2. Rock, Paper, Scissors");
-		System.out.println("3. Quit");
+		System.out.println("3. Trivia Game");
+		System.out.println("4. Word Scramble");
+		System.out.println("5. High-Low Card Game");
+		System.out.println("6. Quit");
 		System.out.println("------------------------------------------");
 	}
 

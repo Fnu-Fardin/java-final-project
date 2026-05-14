@@ -13,7 +13,7 @@ public class Game {
 	public Game(String name) {
 		this.name = name;
 	}
-
+ 
 
 	// Getter - read only access to the game name
 	public String getName() {
