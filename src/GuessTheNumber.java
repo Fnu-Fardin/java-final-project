@@ -30,7 +30,8 @@ public class GuessTheNumber extends Game {
 	@Override
 	public void play() {
 
-		Scanner input = new Scanner(System.in);
+		// use the shared scanner from GameHub to avoid input conflicts
+		Scanner input = GameHub.input;
 
 		// generate a random secret number between 1 and 100 using Math.random()
 		// Math.random() returns a double between 0.0 and 1.0
@@ -43,8 +44,21 @@ public class GuessTheNumber extends Game {
 		// keep looping until the player guesses correctly
 		while (true) {
 
-			System.out.print("Enter your guess: ");
-			int guess = Integer.parseInt(input.nextLine());
+			// --- GET AND VALIDATE USER GUESS ---
+			// wrapped in try/catch so typing letters won't crash the game
+			int guess = 0;
+			boolean validInput = false;
+
+			while (!validInput) {
+				try {
+					System.out.print("Enter your guess: ");
+					guess = Integer.parseInt(input.nextLine());
+					validInput = true;
+
+				} catch (NumberFormatException e) {
+					System.out.println("Invalid input. Please enter a number.");
+				}
+			}
 
 			// add 1 to attempts every time the player guesses
 			attempts = attempts + 1;
